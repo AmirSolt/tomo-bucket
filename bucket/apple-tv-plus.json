@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "description": "Apple TV+ web app launcher with full-screen kiosk mode",
-    "homepage": "https://www.apple.com/apple-tv+",
+    "homepage": "https://tv.apple.com",
     "license": "Freeware",
     "notes": [
         "This manifest creates a shortcut to launch Apple TV+ in your default browser.",
@@ -31,7 +31,7 @@
         "    throw 'Default browser not found'",
         "}",
         "$Shortcut.TargetPath = $browserPath",
-        "$Shortcut.Arguments = \"--kiosk --app=https://www.apple.com/apple-tv+ --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
+        "$Shortcut.Arguments = \"--kiosk --app=https://tv.apple.com --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
         "$Shortcut.WorkingDirectory = \"$env:USERPROFILE\"",
         "$Shortcut.Description = \"Launch Apple TV+ in full-screen kiosk mode\"",
         "$Shortcut.Save()",

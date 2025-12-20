@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "description": "The Roku Channel web app launcher with full-screen kiosk mode",
-    "homepage": "https://www.theplatform.roku.com",
+    "homepage": "https://therokuchannel.roku.com",
     "license": "Freeware",
     "notes": [
         "This manifest creates a shortcut to launch The Roku Channel in your default browser.",
@@ -31,7 +31,7 @@
         "    throw 'Default browser not found'",
         "}",
         "$Shortcut.TargetPath = $browserPath",
-        "$Shortcut.Arguments = \"--kiosk --app=https://www.theplatform.roku.com --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
+        "$Shortcut.Arguments = \"--kiosk --app=https://therokuchannel.roku.com --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
         "$Shortcut.WorkingDirectory = \"$env:USERPROFILE\"",
         "$Shortcut.Description = \"Launch The Roku Channel in full-screen kiosk mode\"",
         "$Shortcut.Save()",
