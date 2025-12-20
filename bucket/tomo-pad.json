@@ -1,0 +1,34 @@
+{
+    "version": "0.2.4",
+    "description": "Tomo Pad - A modern note-taking application",
+    "homepage": "https://github.com/AmirSolt/tomo-pad",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/AmirSolt/tomo-pad/releases/download/v0.2.4/tomo-pad_0.2.4_x64-setup.exe#/setup.exe"
+        }
+    },
+    "installer": {
+        "script": [
+            "Start-Process -Wait \"$dir\\setup.exe\" -ArgumentList '/S' -NoNewWindow",
+            "$installPath = \"$env:LOCALAPPDATA\\Programs\\tomo-pad\\tomo-pad.exe\"",
+            "if (Test-Path $installPath) {",
+            "    Copy-Item $installPath \"$dir\\tomo-pad.exe\" -Force",
+            "    Write-Host \"tomo-pad.exe copied to Scoop directory\"",
+            "} else {",
+            "    Write-Host \"Warning: Could not find tomo-pad.exe at $installPath\"",
+            "}"
+        ]
+    },
+    "shortcuts": [
+        [
+            "tomo-pad.exe",
+            "Tomo Pad"
+        ]
+    ],
+    "checkver": {
+        "url": "https://raw.githubusercontent.com/AmirSolt/tomo-pad/refs/heads/main/releases.json",
+        "jsonpath": "$.version",
+        "regex": "v([\\d.]+)"
+    }
+}
