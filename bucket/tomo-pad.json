@@ -5,7 +5,8 @@
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AmirSolt/tomo-pad/releases/download/v0.2.4/tomo-pad_0.2.4_x64-setup.exe#/setup.exe"
+            "url": "https://github.com/AmirSolt/tomo-pad/releases/download/v0.2.4/tomo-pad_0.2.4_x64-setup.exe#/setup.exe",
+            "hash": "82d8f064d5891fcde290a476de17129d69a43c0a00348b3fc7ba64f2adcee431"
         }
     },
     "installer": {
@@ -26,7 +27,7 @@
             "    }",
             "}",
             "if (-not $found) {",
-            "    Write-Host \"Warning: Could not find tomo-pad.exe in expected locations\"",
+            "    throw \"Could not find tomo-pad.exe in expected locations. Installation may have failed.\"",
             "}"
         ]
     },
