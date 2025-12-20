@@ -1,0 +1,45 @@
+{
+    "version": "0.2.4",
+    "description": "Tomo Pad - A modern note-taking application",
+    "homepage": "https://github.com/AmirSolt/tomo-pad",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/AmirSolt/tomo-pad/releases/download/v0.2.4/tomo-pad_0.2.4_x64-setup.exe#/setup.exe",
+            "hash": "82d8f064d5891fcde290a476de17129d69a43c0a00348b3fc7ba64f2adcee431"
+        }
+    },
+    "installer": {
+        "script": [
+            "Start-Process -Wait \"$dir\\setup.exe\" -ArgumentList '/S' -NoNewWindow",
+            "$installPaths = @(",
+            "    \"$env:LOCALAPPDATA\\Programs\\tomo-pad\\tomo-pad.exe\",",
+            "    \"$env:ProgramFiles\\tomo-pad\\tomo-pad.exe\",",
+            "    \"${env:ProgramFiles(x86)}\\tomo-pad\\tomo-pad.exe\"",
+            ")",
+            "$found = $false",
+            "foreach ($path in $installPaths) {",
+            "    if (Test-Path $path) {",
+            "        Copy-Item $path \"$dir\\tomo-pad.exe\" -Force",
+            "        Write-Host \"tomo-pad.exe copied from: $path\"",
+            "        $found = $true",
+            "        break",
+            "    }",
+            "}",
+            "if (-not $found) {",
+            "    throw \"Could not find tomo-pad.exe in expected locations. Installation may have failed.\"",
+            "}"
+        ]
+    },
+    "shortcuts": [
+        [
+            "tomo-pad.exe",
+            "Tomo Pad"
+        ]
+    ],
+    "checkver": {
+        "url": "https://raw.githubusercontent.com/AmirSolt/tomo-pad/refs/heads/main/releases.json",
+        "jsonpath": "$.version",
+        "regex": "(?:v)?([\\d.]+)"
+    }
+}
