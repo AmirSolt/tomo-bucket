@@ -1,0 +1,53 @@
+{
+    "version": "1.0.0",
+    "description": "Apple TV+ web app launcher with full-screen kiosk mode",
+    "homepage": "https://www.apple.com/apple-tv+",
+    "license": "Freeware",
+    "notes": [
+        "This manifest creates a shortcut to launch Apple TV+ in your default browser.",
+        "The browser will open in full-screen kiosk mode with notifications disabled.",
+        "Shortcut name: 'Apple TV+'"
+    ],
+    "url": "https://github.com/AmirSolt/tomo-bucket/raw/main/scripts/.gitkeep",
+    "hash": "0d486e97a72a9d503928d2bbd59285c9f757992d8df104fd560ceaa94d60c6bd",
+    "post_install": [
+        "$shortcutPath = \"$env:USERPROFILE\\Desktop\\Apple TV+.lnk\"",
+        "$WScriptShell = New-Object -ComObject WScript.Shell",
+        "$Shortcut = $WScriptShell.CreateShortcut($shortcutPath)",
+        "$browserPath = $null",
+        "try {",
+        "    $progId = (Get-ItemProperty 'HKCU:\\Software\\Microsoft\\Windows\\Shell\\Associations\\UrlAssociations\\http\\UserChoice' -ErrorAction Stop).ProgId",
+        "    $browserCmd = (Get-ItemProperty \"HKCR:\\$progId\\shell\\open\\command\" -ErrorAction Stop).'(default)'",
+        "    if ($browserCmd -match '\"([^\"]+)\"') {",
+        "        $browserPath = $matches[1]",
+        "    } elseif ($browserCmd -match '^([^\\s]+)') {",
+        "        $browserPath = $matches[1]",
+        "    }",
+        "} catch {",
+        "    Write-Host 'Could not detect default browser from registry' -ForegroundColor Yellow",
+        "}",
+        "if (-not $browserPath -or -not (Test-Path $browserPath)) {",
+        "    Write-Host 'Default browser not found or not accessible. Please set your default browser and try again.' -ForegroundColor Red",
+        "    throw 'Default browser not found'",
+        "}",
+        "$Shortcut.TargetPath = $browserPath",
+        "$Shortcut.Arguments = \"--kiosk --app=https://www.apple.com/apple-tv+ --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
+        "$Shortcut.WorkingDirectory = \"$env:USERPROFILE\"",
+        "$Shortcut.Description = \"Launch Apple TV+ in full-screen kiosk mode\"",
+        "$Shortcut.Save()",
+        "Write-Host \"Apple TV+ shortcut created on Desktop using browser: $browserPath\" -ForegroundColor Green"
+    ],
+    "uninstaller": {
+        "script": [
+            "$shortcutPath = \"$env:USERPROFILE\\Desktop\\Apple TV+.lnk\"",
+            "if (Test-Path $shortcutPath) {",
+            "    Remove-Item $shortcutPath -Force",
+            "    Write-Host 'Apple TV+ shortcut removed from Desktop' -ForegroundColor Green",
+            "}"
+        ]
+    },
+    "checkver": {
+        "url": "https://github.com/AmirSolt/tomo-bucket",
+        "regex": "apple-tv-plus-v([\\d.]+)"
+    }
+}
