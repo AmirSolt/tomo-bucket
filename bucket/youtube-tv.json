@@ -1,0 +1,44 @@
+{
+    "version": "1.0.0",
+    "description": "YouTube TV web app launcher with full-screen kiosk mode",
+    "homepage": "https://www.youtube.com/tv",
+    "license": "Freeware",
+    "notes": [
+        "This manifest creates a shortcut to launch YouTube TV in your default browser.",
+        "The browser will open in full-screen kiosk mode with notifications disabled.",
+        "Shortcut name: 'Youtube Tv'"
+    ],
+    "url": "https://github.com/AmirSolt/tomo-bucket/raw/main/scripts/.gitkeep",
+    "hash": "0d486e97a72a9d503928d2bbd59285c9f757992d8df104fd560ceaa94d60c6bd",
+    "post_install": [
+        "$shortcutPath = \"$env:USERPROFILE\\Desktop\\Youtube Tv.lnk\"",
+        "$WScriptShell = New-Object -ComObject WScript.Shell",
+        "$Shortcut = $WScriptShell.CreateShortcut($shortcutPath)",
+        "$chromePath = \"$env:ProgramFiles\\Google\\Chrome\\Application\\chrome.exe\"",
+        "if (-not (Test-Path $chromePath)) {",
+        "    $chromePath = \"${env:ProgramFiles(x86)}\\Google\\Chrome\\Application\\chrome.exe\"",
+        "}",
+        "if (-not (Test-Path $chromePath)) {",
+        "    $chromePath = \"$env:LOCALAPPDATA\\Google\\Chrome\\Application\\chrome.exe\"",
+        "}",
+        "$Shortcut.TargetPath = $chromePath",
+        "$Shortcut.Arguments = \"--kiosk --app=https://www.youtube.com/tv --disable-notifications --disable-popup-blocking --no-first-run --no-default-browser-check --disable-features=TranslateUI\"",
+        "$Shortcut.WorkingDirectory = \"$env:USERPROFILE\"",
+        "$Shortcut.Description = \"Launch YouTube TV in full-screen kiosk mode\"",
+        "$Shortcut.Save()",
+        "Write-Host 'YouTube TV shortcut created on Desktop: Youtube Tv.lnk' -ForegroundColor Green"
+    ],
+    "uninstaller": {
+        "script": [
+            "$shortcutPath = \"$env:USERPROFILE\\Desktop\\Youtube Tv.lnk\"",
+            "if (Test-Path $shortcutPath) {",
+            "    Remove-Item $shortcutPath -Force",
+            "    Write-Host 'YouTube TV shortcut removed from Desktop' -ForegroundColor Green",
+            "}"
+        ]
+    },
+    "checkver": {
+        "url": "https://github.com/AmirSolt/tomo-bucket",
+        "regex": "youtube-tv-v([\\d.]+)"
+    }
+}
