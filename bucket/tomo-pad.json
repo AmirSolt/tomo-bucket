@@ -11,12 +11,22 @@
     "installer": {
         "script": [
             "Start-Process -Wait \"$dir\\setup.exe\" -ArgumentList '/S' -NoNewWindow",
-            "$installPath = \"$env:LOCALAPPDATA\\Programs\\tomo-pad\\tomo-pad.exe\"",
-            "if (Test-Path $installPath) {",
-            "    Copy-Item $installPath \"$dir\\tomo-pad.exe\" -Force",
-            "    Write-Host \"tomo-pad.exe copied to Scoop directory\"",
-            "} else {",
-            "    Write-Host \"Warning: Could not find tomo-pad.exe at $installPath\"",
+            "$installPaths = @(",
+            "    \"$env:LOCALAPPDATA\\Programs\\tomo-pad\\tomo-pad.exe\",",
+            "    \"$env:ProgramFiles\\tomo-pad\\tomo-pad.exe\",",
+            "    \"${env:ProgramFiles(x86)}\\tomo-pad\\tomo-pad.exe\"",
+            ")",
+            "$found = $false",
+            "foreach ($path in $installPaths) {",
+            "    if (Test-Path $path) {",
+            "        Copy-Item $path \"$dir\\tomo-pad.exe\" -Force",
+            "        Write-Host \"tomo-pad.exe copied from: $path\"",
+            "        $found = $true",
+            "        break",
+            "    }",
+            "}",
+            "if (-not $found) {",
+            "    Write-Host \"Warning: Could not find tomo-pad.exe in expected locations\"",
             "}"
         ]
     },
@@ -29,6 +39,6 @@
     "checkver": {
         "url": "https://raw.githubusercontent.com/AmirSolt/tomo-pad/refs/heads/main/releases.json",
         "jsonpath": "$.version",
-        "regex": "v([\\d.]+)"
+        "regex": "(?:v)?([\\d.]+)"
     }
 }
