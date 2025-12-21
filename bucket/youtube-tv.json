@@ -10,6 +10,12 @@
             "Youtube Tv"
         ]
     ],
+      "architecture": {
+        "64bit": {
+            "url": "about:blank",
+            "hash": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+    },
     "installer": {
         "script": [
             "$ErrorActionPreference = 'Stop'",
