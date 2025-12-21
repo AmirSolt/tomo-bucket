@@ -10,6 +10,8 @@
             "Youtube Tv"
         ]
     ],
+    "url":"https://raw.githubusercontent.com/AmirSolt/tomo-bucket/refs/heads/master/empty.txt",
+    "hash":"45FD2F9DF187BC411DC80DF5C4C4844AC00F4DD69BC69453F1893A5D143433D6",
     "installer": {
         "script": [
             "$ErrorActionPreference = 'Stop'",
@@ -57,6 +59,5 @@
             "$lnk = Join-Path $original_dir 'youtube-tv.lnk'",
             "if (Test-Path $lnk) { Remove-Item $lnk -Force }"
         ]
-    },
-    "bin": []
+    }
 }
