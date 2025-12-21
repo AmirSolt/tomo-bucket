@@ -31,7 +31,7 @@
             "if (-not (Test-Path $browserExe)) { throw 'Browser executable not found.' }",
             "",
             "# Shortcut path (Scoop app directory)",
-            "$lnkPath = Join-Path $original_dir 'youtube-tv.lnk'",
+            "$lnkPath = Join-Path $original_dir 'Youtube Tv.lnk'",
             "",
             "# Launch arguments",
             "$args = @(",
@@ -52,12 +52,6 @@
             "$sc.WorkingDirectory = Split-Path $browserExe",
             "$sc.IconLocation = \"$browserExe,0\"",
             "$sc.Save()"
-        ]
-    },
-    "uninstaller": {
-        "script": [
-            "$lnk = Join-Path $original_dir 'youtube-tv.lnk'",
-            "if (Test-Path $lnk) { Remove-Item $lnk -Force }"
         ]
     }
 }
